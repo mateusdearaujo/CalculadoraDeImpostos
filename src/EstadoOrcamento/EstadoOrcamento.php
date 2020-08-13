@@ -24,5 +24,4 @@ abstract class EstadoOrcamento {
     public function finaliza(Orcamento $orcamento) {
         throw new \DomainException('Este orçamento não pode ser finalizado');
     }
-
 }

@@ -24,7 +24,6 @@ class Orcamento {
 
     public function reprova() {
         $this->estadoAtual->reprova($this);
-        return "Reprovado";
     }
 
     public function finaliza() {
