@@ -17,6 +17,3 @@ $calculadora = new CalculadoraDeDescontos();
 $orcamento = new Orcamento();
 $orcamento->valor = 1000;
 $orcamento->quantidadeItens = 4;
-
-
-echo $calculadora->calculaDescontos($orcamento);
