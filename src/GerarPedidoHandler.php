@@ -1,10 +1,14 @@
 <?php
 
-
 namespace Alura\DesignPattern;
 
+use SplObserver;
 
-class GerarPedidoHandler {
+class GerarPedidoHandler implements \SplSubject {
+
+    /** @var SplObserver[]  */
+    private array $acoesAposGerarPedido = [];
+    public Pedido $pedido;
 
     public function execute(GerarPedido $gerarPedido) {
         $orcamento = new Orcamento();
@@ -16,10 +20,21 @@ class GerarPedidoHandler {
         $pedido->nomeCliente = $gerarPedido->getNomeCliente();
         $pedido->orcamento = $orcamento;
 
-        echo "Nome do Cliente: " . $pedido->nomeCliente . PHP_EOL;
-        echo "Quantidade de itens: " . $orcamento->quantidadeItens . PHP_EOL;
-        echo "Valor total da Compra: R$ " . $orcamento->valor . PHP_EOL;
-        echo "Cria pedido no Banco de Dados " . PHP_EOL;
-        echo "Envia e-mail para cliente" . PHP_EOL;
+        $this->pedido = $pedido;
+        $this->notify();
+
+    }
+    public function attach(SplObserver $observer) {
+        $this->acoesAposGerarPedido[] = $observer;
+    }
+
+    public function notify() {
+        foreach($this->acoesAposGerarPedido as $acao) {
+            $acao->update($this);
+        }
+    }
+
+    public function detach(SplObserver $observer) {
+
     }
 }
